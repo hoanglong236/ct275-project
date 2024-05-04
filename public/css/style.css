@@ -1,0 +1,22 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.favorite-quote {
+    border-left: .5rem solid #ee1983;
+}
