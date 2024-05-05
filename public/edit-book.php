@@ -4,7 +4,7 @@ require_once __DIR__ . '/../src/bootstrap.php';
 use CT275\Labs\Services\UserService;
 use CT275\Labs\Services\BookService;
 
-$userService = new UserService(createPDOInstance());
+$userService = new UserService($pdo);
 $authorizedUser = $userService->getAuthorizedUser();
 if (empty($authorizedUser['id'])) {
     redirect('/sign-in.php');
@@ -15,7 +15,7 @@ if (empty($bookId)) {
     redirect('/index.php');
 }
 
-$bookService = new BookService(createPDOInstance(), $authorizedUser['id']);
+$bookService = new BookService($pdo, $authorizedUser['id']);
 
 $book = $bookService->getBookById($bookId);
 if (empty($book)) {

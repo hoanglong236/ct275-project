@@ -4,7 +4,7 @@ require_once __DIR__ . '/../src/bootstrap.php';
 use CT275\Labs\Services\QuoteService;
 use CT275\Labs\Services\UserService;
 
-$userService = new UserService(createPDOInstance());
+$userService = new UserService($pdo);
 $authorizedUser = $userService->getAuthorizedUser();
 if (empty($authorizedUser['id'])) {
     redirect('/sign-in.php');
@@ -15,7 +15,7 @@ if (empty($quoteId)) {
     redirect('/index.php');
 }
 
-$quoteService = new QuoteService(createPDOInstance(), $authorizedUser['id']);
+$quoteService = new QuoteService($pdo, $authorizedUser['id']);
 
 $quote = $quoteService->getQuoteById($quoteId);
 if (empty($quote)) {

@@ -4,14 +4,14 @@ require_once __DIR__ . '/../src/bootstrap.php';
 use CT275\Labs\Services\UserService;
 use CT275\Labs\Services\BookService;
 
-$userService = new UserService(createPDOInstance());
+$userService = new UserService($pdo);
 $authorizedUser = $userService->getAuthorizedUser();
 if (empty($authorizedUser['id'])) {
     redirect('/sign-in.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $bookService = new BookService(createPDOInstance(), $authorizedUser['id']);
+    $bookService = new BookService($pdo, $authorizedUser['id']);
     $errors = $bookService->validateBookData($_POST);
 
     if (empty($errors)) {

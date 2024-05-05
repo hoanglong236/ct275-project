@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-$userService = new UserService(createPDOInstance());
+$userService = new UserService($pdo);
 $authorizedUser = $userService->getAuthorizedUser();
 if (empty($authorizedUser['id'])) {
     http_response_code(401);

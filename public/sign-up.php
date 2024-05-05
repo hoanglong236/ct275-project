@@ -4,7 +4,7 @@ require_once __DIR__ . '/../src/bootstrap.php';
 use CT275\Labs\Services\UserService;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userService = new UserService(createPDOInstance());
+    $userService = new UserService($pdo);
 
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';

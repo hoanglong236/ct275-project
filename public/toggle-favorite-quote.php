@@ -17,7 +17,7 @@ if (empty($quoteId)) {
     exit();
 }
 
-$userService = new UserService(createPDOInstance());
+$userService = new UserService($pdo);
 $authorizedUser = $userService->getAuthorizedUser();
 if (empty($authorizedUser['id'])) {
     http_response_code(401);
@@ -25,7 +25,7 @@ if (empty($authorizedUser['id'])) {
     exit();
 }
 
-$quoteService = new QuoteService(createPDOInstance(), $authorizedUser['id']);
+$quoteService = new QuoteService($pdo, $authorizedUser['id']);
 if ($quoteService->toggleFavoriteQuote($quoteId)) {
     redirect("/quotes.php");
 } else {
