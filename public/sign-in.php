@@ -23,4 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$data['pageTitle'] = 'Sign-in';
 require_once ('./view/sign-in.php');

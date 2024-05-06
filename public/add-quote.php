@@ -26,4 +26,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$data['pageTitle'] = 'Add Quote';
 require_once ('./view/add-quote.php');

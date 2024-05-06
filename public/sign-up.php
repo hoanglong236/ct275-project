@@ -24,4 +24,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$data['pageTitle'] = 'Sign-up';
 require_once ('./view/sign-up.php');

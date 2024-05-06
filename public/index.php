@@ -13,4 +13,5 @@ if (empty($authorizedUser['id'])) {
 $bookService = new BookService($pdo, $authorizedUser['id']);
 $books = $bookService->getAllBooks();
 
+$data['pageTitle'] = 'Books Collection';
 require_once ('./view/index.php');

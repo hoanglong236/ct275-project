@@ -19,4 +19,5 @@ if (empty($searchTerm)) {
     $quotes = $quoteService->searchQuotes($searchTerm);
 }
 
+$data['pageTitle'] = 'Quotes Collection';
 require_once ('./view/quotes.php');

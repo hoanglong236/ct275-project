@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-$pageTitle = 'Sign-in';
-include_once ('./view/partials/head.php');
-?>
+<?php include_once ('./view/partials/head.php') ?>
 
 <body>
     <div class="container">

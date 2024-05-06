@@ -37,4 +37,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$data['pageTitle'] = 'Edit Book';
 require_once ('./view/edit-book.php');

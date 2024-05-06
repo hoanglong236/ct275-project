@@ -26,4 +26,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$data['pageTitle'] = 'Add Book';
 require_once ('./view/add-book.php');

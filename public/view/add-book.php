@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-$pageTitle = 'Add Book';
-include_once ('./view/partials/head.php');
-?>
+<?php include_once ('./view/partials/head.php') ?>
 
 <body>
     <?php include_once ('./view/partials/navbar.php') ?>
