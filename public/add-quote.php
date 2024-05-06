@@ -11,16 +11,11 @@ if (empty($authorizedUser['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $quoteData = array_map('trim', $_POST);
     $quoteService = new QuoteService($pdo, $authorizedUser['id']);
-    $errors = $quoteService->validateQuoteData($_POST);
 
+    $errors = $quoteService->validateQuoteData($quoteData);
     if (empty($errors)) {
-        $quoteData = [
-            'user_id' => $authorizedUser['id'],
-            'quote_text' => $_POST['quote_text'],
-            'author' => $_POST['author'],
-        ];
-
         if ($quoteService->addQuote($quoteData)) {
             redirect('/quotes.php');
         } else {

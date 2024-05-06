@@ -6,7 +6,7 @@ use CT275\Labs\Services\UserService;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userService = new UserService($pdo);
 
-    $username = $_POST['username'] ?? '';
+    $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm-password'] ?? '';
 

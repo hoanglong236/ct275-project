@@ -11,18 +11,11 @@ if (empty($authorizedUser['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $bookData = array_map('trim', $_POST);
     $bookService = new BookService($pdo, $authorizedUser['id']);
-    $errors = $bookService->validateBookData($_POST);
 
+    $errors = $bookService->validateBookData($bookData);
     if (empty($errors)) {
-        $bookData = [
-            'title' => $_POST['title'],
-            'author' => $_POST['author'],
-            'genre' => $_POST['genre'],
-            'published_year' => $_POST['published_year'],
-            'image_url' => $_POST['image_url']
-        ];
-
         if ($bookService->addBook($bookData)) {
             redirect('/index.php');
         } else {

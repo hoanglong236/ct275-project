@@ -10,7 +10,7 @@ if (empty($authorizedUser['id'])) {
     redirect('/sign-in.php');
 }
 
-$searchTerm = $_GET['search_term'] ?? '';
+$searchTerm = trim($_GET['search_term'] ?? '');
 $quoteService = new QuoteService($pdo, $authorizedUser['id']);
 $quotes = $quoteService->searchQuotes($searchTerm);
 

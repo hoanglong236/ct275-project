@@ -23,17 +23,10 @@ if (empty($book)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = $bookService->validateBookData($_POST);
+    $bookData = array_map('trim', $_POST);
 
+    $errors = $bookService->validateBookData($bookData);
     if (empty($errors)) {
-        $bookData = [
-            'title' => $_POST['title'],
-            'author' => $_POST['author'],
-            'genre' => $_POST['genre'],
-            'published_year' => $_POST['published_year'],
-            'image_url' => $_POST['image_url']
-        ];
-
         if ($bookService->editBook($bookId, $bookData)) {
             redirect('/index.php');
         } else {

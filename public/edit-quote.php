@@ -23,14 +23,10 @@ if (empty($quote)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = $quoteService->validateQuoteData($_POST);
+    $quoteData = array_map('trim', $_POST);
 
+    $errors = $quoteService->validateQuoteData($quoteData);
     if (empty($errors)) {
-        $quoteData = [
-            'quote_text' => $_POST['quote_text'],
-            'author' => $_POST['author'],
-        ];
-
         if ($quoteService->editQuote($quoteId, $quoteData)) {
             redirect('/quotes.php');
         } else {
