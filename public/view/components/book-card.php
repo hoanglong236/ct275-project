@@ -12,7 +12,7 @@
                 <p class="card-text text-sm"><?= html_escape($book['genre']) ?>
                     (<?= html_escape($book['published_year']) ?>)</p>
                 <div class="d-flex-inline">
-                    <a href="/search-quotes.php?search_term=<?= html_escape($book['title']) ?>"
+                    <a href="/quotes.php?search_term=<?= html_escape($book['title']) ?>"
                         class="btn btn-link p-0">Quotes</a>
                     <a href="/edit-book.php?id=<?= html_escape($book['id']) ?>" class="btn btn-link ml-2 p-0">Edit</a>
                     <form action="/delete-book.php" method="post" class="d-inline"

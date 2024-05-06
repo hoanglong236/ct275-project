@@ -15,7 +15,7 @@ include_once ('./view/partials/head.php');
             <a href="/add-quote.php" class="btn btn-primary">Add Quote</a>
         </div>
 
-        <form action="/search-quotes.php" method="GET" class="mb-4">
+        <form action="/quotes.php" method="GET" class="mb-4">
             <div class="input-group">
                 <input type="text" name="search_term" class="form-control" placeholder="Search quotes..."
                     value="<?= html_escape($searchTerm) ?>">
