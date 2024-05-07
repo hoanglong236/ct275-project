@@ -14,4 +14,4 @@ $bookService = new BookService($pdo, $authorizedUser['id']);
 $books = $bookService->getAllBooks();
 
 $data['pageTitle'] = 'Books Collection';
-require_once ('./view/index.php');
+require_once 'view/index.php';

@@ -12,4 +12,4 @@ if ($status_code === 401) {
     $error_message = 'An error occurred.';
 }
 
-require_once ('./view/error.php');
+require_once 'view/error.php';

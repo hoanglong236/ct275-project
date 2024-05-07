@@ -20,4 +20,4 @@ if (empty($searchTerm)) {
 }
 
 $data['pageTitle'] = 'Quotes Collection';
-require_once ('./view/quotes.php');
+require_once 'view/quotes.php';

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once ('./view/partials/head.php') ?>
+<?php include_once 'partials/head.php' ?>
 
 <body>
-    <?php include_once ('./view/partials/navbar.php') ?>
+    <?php include_once 'partials/navbar.php' ?>
 
     <main role="main" class="container mt-4">
         <div class="d-flex justify-content-between align-items-center my-4">
@@ -23,11 +23,11 @@
         </form>
 
         <?php foreach ($quotes as $quote): ?>
-            <?php include ('./view/components/quote-card.php') ?>
+            <?php include 'components/quote-card.php' ?>
         <?php endforeach; ?>
     </main>
 
-    <?php include_once ('./view/partials/footer.php') ?>
+    <?php include_once 'partials/footer.php' ?>
 </body>
 
 </html>
