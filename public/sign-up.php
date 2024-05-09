@@ -24,5 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$data['pageTitle'] = 'Sign-up';
-require_once 'view/sign-up.php';
+$data['pageTitle'] = 'Sign Up';
+$data['templateContent'] = 'components/sign-up-form.php';
+require_once 'view/auth-template.php';
