@@ -38,4 +38,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $data['pageTitle'] = 'Edit Book';
-require_once 'view/edit-book.php';
+$data['templateContent'] = 'components/edit-book-form.php';
+require_once 'view/entry-item-template.php';

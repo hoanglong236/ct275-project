@@ -27,4 +27,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $data['pageTitle'] = 'Add Book';
-require_once 'view/add-book.php';
+$data['templateContent'] = 'components/add-book-form.php';
+require_once 'view/entry-item-template.php';

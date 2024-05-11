@@ -27,4 +27,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $data['pageTitle'] = 'Add Quote';
-require_once 'view/add-quote.php';
+$data['templateContent'] = 'components/add-quote-form.php';
+require_once 'view/entry-item-template.php';

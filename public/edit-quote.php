@@ -38,4 +38,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $data['pageTitle'] = 'Edit Quote';
-require_once 'view/edit-quote.php';
+$data['templateContent'] = 'components/edit-quote-form.php';
+require_once 'view/entry-item-template.php';
