@@ -8,13 +8,11 @@ class Authorization
 
     public static function setAuthorizedUser(array $userData): void
     {
-        self::ensureSessionStarted();
         $_SESSION[self::SESSION_KEY] = $userData;
     }
 
     public static function getAuthorizedUser(): ?array
     {
-        self::ensureSessionStarted();
         return $_SESSION[self::SESSION_KEY] ?? null;
     }
 
@@ -25,10 +23,8 @@ class Authorization
         }
     }
 
-    private static function ensureSessionStarted(): void
+    public static function revokeAuthorization(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        unset($_SESSION[self::SESSION_KEY]);
     }
 }

@@ -3,6 +3,8 @@
 require_once 'autoload.php';
 require_once 'functions.php';
 
+ensure_session_started();
+
 try {
     $pdo = (new CT275\Labs\Database\PDOFactory())->create();
 } catch (\PDOException $ex) {

@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 Authorization::redirectIfUnauthorized();
+Authorization::revokeAuthorization();
 
 $userService = new UserService($pdo);
 $userService->signOut();
