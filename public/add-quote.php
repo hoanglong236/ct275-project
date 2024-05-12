@@ -1,14 +1,11 @@
 <?php
 require_once __DIR__ . '/../src/bootstrap.php';
 
+use CT275\Labs\Common\Authorization;
 use CT275\Labs\Services\QuoteService;
-use CT275\Labs\Services\UserService;
 
-$userService = new UserService($pdo);
-$authorizedUser = $userService->getAuthorizedUser();
-if (empty($authorizedUser['id'])) {
-    redirect('/sign-in.php');
-}
+Authorization::redirectIfUnauthorized();
+$authorizedUser = Authorization::getAuthorizedUser();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quoteData = array_map('trim', $_POST);

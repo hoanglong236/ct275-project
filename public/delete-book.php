@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/bootstrap.php';
 
-use CT275\Labs\Services\UserService;
+use CT275\Labs\Common\Authorization;
 use CT275\Labs\Services\BookService;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -17,13 +17,8 @@ if (empty($bookId)) {
     exit();
 }
 
-$userService = new UserService($pdo);
-$authorizedUser = $userService->getAuthorizedUser();
-if (empty($authorizedUser['id'])) {
-    http_response_code(401);
-    include_once 'error.php';
-    exit();
-}
+Authorization::redirectIfUnauthorized();
+$authorizedUser = Authorization::getAuthorizedUser();
 
 $bookService = new BookService($pdo, $authorizedUser['id']);
 if ($bookService->deleteBook($bookId)) {

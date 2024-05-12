@@ -37,39 +37,6 @@ class UserService
     }
 
     /**
-     * Set the authorized user information in the session.
-     * 
-     * @param array $user The user data.
-     * @return void
-     */
-    public function setAuthorizedUser(array $user): void
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-    }
-
-    /**
-     * Get the authorized user information from the session.
-     *
-     * @return array The authorized user data.
-     */
-    public function getAuthorizedUser(): array
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        return [
-            'id' => $_SESSION['user_id'] ?? null,
-            'username' => $_SESSION['username'] ?? null
-        ];
-    }
-
-    /**
      * Sign up a new user.
      * 
      * @param string $username The username.

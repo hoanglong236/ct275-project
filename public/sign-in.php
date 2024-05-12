@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/bootstrap.php';
 
+use CT275\Labs\Common\Authorization;
 use CT275\Labs\Services\UserService;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $authorizedUser = $userService->authenticate($username, $password);
 
         if ($authorizedUser) {
-            $userService->setAuthorizedUser($authorizedUser);
+            Authorization::setAuthorizedUser($authorizedUser);
             redirect('/index.php');
         } else {
             $error = "Invalid username or password";
