@@ -6,14 +6,12 @@ use CT275\Labs\Services\QuoteService;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(404);
-    include_once 'error.php';
     exit();
 }
 
 $quoteId = $_POST['id'] ?? null;
 if (empty($quoteId)) {
-    http_response_code(404);
-    include_once 'error.php';
+    http_response_code(400);
     exit();
 }
 
@@ -25,6 +23,5 @@ if ($quoteService->deleteQuote($quoteId)) {
     redirect("/quotes.php");
 } else {
     http_response_code(500);
-    include_once 'error.php';
     exit();
 }
