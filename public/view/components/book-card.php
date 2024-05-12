@@ -8,8 +8,8 @@
         <div class="flex-grow-1">
             <div class="card-body">
                 <h4 class="card-title"><?= html_escape($book['title']) ?></h4>
-                <p class="card-text mb-1 text-sm"><strong><?= html_escape($book['author']) ?></strong></p>
-                <p class="card-text text-sm"><?= html_escape($book['genre']) ?>
+                <p class="card-text mb-1 small"><strong><?= html_escape($book['author']) ?></strong></p>
+                <p class="card-text small"><?= html_escape($book['genre']) ?>
                     (<?= html_escape($book['published_year']) ?>)</p>
                 <div class="d-flex-inline">
                     <a href="/quotes.php?search_term=<?= html_escape($book['title']) ?>"
