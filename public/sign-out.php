@@ -5,7 +5,7 @@ use CT275\Labs\Common\Authorization;
 use CT275\Labs\Services\UserService;
 
 Authorization::redirectIfUnauthorized();
-Authorization::revokeAuthorization();
+Authorization::revokeUserAuthorization();
 
 $userService = new UserService($pdo);
 $userService->signOut();

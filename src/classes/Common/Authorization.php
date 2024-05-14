@@ -23,7 +23,7 @@ class Authorization
         }
     }
 
-    public static function revokeAuthorization(): void
+    public static function revokeUserAuthorization(): void
     {
         unset($_SESSION[self::SESSION_KEY]);
     }
