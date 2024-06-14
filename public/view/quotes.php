@@ -15,14 +15,14 @@
         <form action="/quotes.php" method="GET" class="mb-4">
             <div class="input-group">
                 <input type="text" name="search_term" class="form-control" placeholder="Search quotes..."
-                    value="<?= html_escape($searchTerm) ?>">
+                    value="<?= html_escape($data['searchTerm']) ?>">
                 <div class="input-group-append">
                     <button type="submit" class="px-5 btn btn-primary">Search</button>
                 </div>
             </div>
         </form>
 
-        <?php foreach ($quotes as $quote): ?>
+        <?php foreach ($data['quotes'] as $quoteData): ?>
             <?php include 'components/quote-card.php' ?>
         <?php endforeach; ?>
     </main>

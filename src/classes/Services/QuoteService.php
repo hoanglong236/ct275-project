@@ -15,41 +15,42 @@ class QuoteService
         $this->authorizedUserId = $authorizedUserId;
     }
 
-    /**
-     * Retrieve all quotes.
-     *
-     * @return array An array of quotes.
-     */
-    public function getAllQuotes(): array
+    public function searchQuotesWithCriteria(array $criteria): array
     {
-        $query = "SELECT * FROM quotes q WHERE user_id = :user_id";
+        $params = [];
+
+        $query = 'SELECT * FROM quotes q WHERE user_id = :user_id';
+        $params[':user_id'] = [$this->authorizedUserId, PDO::PARAM_INT];
+
+        if (!empty($criteria['searchTerm'])) {
+            $query .= ' AND (LOWER(quote_text) LIKE :search_term OR LOWER(author) LIKE :search_term)';
+            $params[':search_term'] = ['%' . strtolower($criteria['searchTerm']) . '%', PDO::PARAM_STR];
+        }
+
+        $sortField = $criteria['sortField'] ?? 'created_at';
+        $sortOrder = ($criteria['sortAsc'] ?? false) ? ' ASC' : ' DESC';
+        if ($this->isValidSortField($sortField)) {
+            $query .= ' ORDER BY ' . $sortField . $sortOrder;
+        }
+
+        $query .= ' LIMIT :limit OFFSET :offset';
+        $params[':limit'] = [$criteria['perPage'], PDO::PARAM_INT];
+        $params[':offset'] = [($criteria['page'] - 1) * $criteria['perPage'], PDO::PARAM_INT];
 
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['user_id' => $this->authorizedUserId]);
 
+        foreach ($params as $paramName => [$paramValue, $paramType]) {
+            $stmt->bindValue($paramName, $paramValue, $paramType);
+        }
+
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Search for quotes containing a given search term in the quote text or author field.
-     *
-     * @param string $searchTerm The term to search.
-     * @return array An array of quotes matching the search term.
-     */
-    public function searchQuotes(string $searchTerm): array
+    private function isValidSortField(string $sortField): bool
     {
-        $query = "SELECT * FROM quotes q 
-                  WHERE user_id = :user_id 
-                      AND (LOWER(quote_text) LIKE :search_term OR LOWER(author) LIKE :search_term)";
-
-        $stmt = $this->pdo->prepare($query);
-
-        $stmt->execute([
-            ':user_id' => $this->authorizedUserId,
-            ':search_term' => '%' . strtolower($searchTerm) . '%'
-        ]);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $validSortFields = ['author', 'created_at'];
+        return in_array($sortField, $validSortFields);
     }
 
     /**

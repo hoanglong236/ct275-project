@@ -6,15 +6,17 @@ use CT275\Labs\Services\QuoteService;
 
 Authorization::redirectIfUnauthorized();
 $authorizedUser = Authorization::getAuthorizedUser();
-
-$searchTerm = trim($_GET['search_term'] ?? '');
 $quoteService = new QuoteService($pdo, $authorizedUser['id']);
 
-if (empty($searchTerm)) {
-    $quotes = $quoteService->getAllQuotes();
-} else {
-    $quotes = $quoteService->searchQuotes($searchTerm);
-}
+$criteria = [];
+$criteria['perPage'] = 20;
+$criteria['page'] = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
+$criteria['searchTerm'] = trim($_GET['search_term'] ?? '');
+
+$quotes = $quoteService->searchQuotesWithCriteria($criteria);
 
 $data['pageTitle'] = 'Quotes Collection';
+$data['quotes'] = $quotes;
+$data['searchTerm'] = $criteria['searchTerm'];
+
 require_once 'view/quotes.php';
