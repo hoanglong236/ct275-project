@@ -5,13 +5,20 @@ use CT275\Labs\Common\Authorization;
 use CT275\Labs\Services\UserService;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    handleSignIn();
+} else {
+    showSignInPage();
+}
+
+function handleSignIn() {
+    global $pdo;
     $userService = new UserService($pdo);
 
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $error = "Username and password are required";
+        showSignInPage('Username and password are required.');
     } else {
         $authorizedUser = $userService->authenticate($username, $password);
 
@@ -19,11 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Authorization::setAuthorizedUser($authorizedUser);
             redirect('/index.php');
         } else {
-            $error = "Invalid username or password";
+            showSignInPage('Invalid username or password.');
         }
     }
 }
 
-$data['pageTitle'] = 'Sign In';
-$data['templateContent'] = 'components/sign-in-form.php';
-require_once 'view/auth-template.php';
+function showSignInPage(string $errorMessage = null) {
+    $error = $errorMessage;
+    $data['pageTitle'] = 'Sign In';
+    $data['templateContent'] = 'components/sign-in-form.php';
+
+    require_once 'view/auth-template.php';
+}

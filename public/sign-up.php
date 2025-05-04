@@ -4,6 +4,13 @@ require_once __DIR__ . '/../src/bootstrap.php';
 use CT275\Labs\Services\UserService;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    handleSignUp();
+} else {
+    showSignUpPage();
+}
+
+function handleSignUp() {
+    global $pdo;
     $userService = new UserService($pdo);
 
     $username = trim($_POST['username'] ?? '');
@@ -11,19 +18,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = $_POST['confirm-password'] ?? '';
 
     if (empty($username) || empty($password) || empty($confirmPassword)) {
-        $error = "All fields are required";
+        showSignUpPage('All fields are required.');
+
     } elseif ($password !== $confirmPassword) {
-        $error = "Passwords do not match";
+        showSignUpPage('Password does not match.');
+
+    } elseif ($userService->usernameExists($username)) {
+        showSignUpPage('Username already exists.');
+
     } else {
-        if ($userService->usernameExists($username)) {
-            $error = "Username already exists";
-        } else {
-            $userService->signUp($username, $password);
-            redirect('/sign-in.php');
-        }
+        $userService->signUp($username, $password);
+        redirect('/sign-in.php');
     }
 }
 
-$data['pageTitle'] = 'Sign Up';
-$data['templateContent'] = 'components/sign-up-form.php';
-require_once 'view/auth-template.php';
+function showSignUpPage(string $errorMessage = null) {
+    $error = $errorMessage;
+    $data['pageTitle'] = 'Sign Up';
+    $data['templateContent'] = 'components/sign-up-form.php';
+
+    require_once 'view/auth-template.php';
+}
