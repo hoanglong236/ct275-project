@@ -6,6 +6,8 @@ use PDO;
 
 class QuoteService
 {
+    private const VALID_SORT_FIELDS = ['author', 'created_at'];
+
     private PDO $pdo;
     private $authorizedUserId;
 
@@ -29,7 +31,7 @@ class QuoteService
 
         $sortField = $criteria['sortField'] ?? 'created_at';
         $sortOrder = ($criteria['sortAsc'] ?? false) ? ' ASC' : ' DESC';
-        if ($this->isValidSortField($sortField)) {
+        if (in_array($sortField, self::VALID_SORT_FIELDS)) {
             $query .= ' ORDER BY ' . $sortField . $sortOrder;
         }
 
@@ -47,12 +49,6 @@ class QuoteService
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    private function isValidSortField(string $sortField): bool
-    {
-        $validSortFields = ['author', 'created_at'];
-        return in_array($sortField, $validSortFields);
-    }
-
     /**
      * Add a new quote.
      *
@@ -61,8 +57,8 @@ class QuoteService
      */
     public function addQuote(array $quoteData): bool
     {
-        $query = "INSERT INTO quotes (user_id, quote_text, author) 
-                  VALUES (:user_id, :quote_text, :author)";
+        $query = 'INSERT INTO quotes (user_id, quote_text, author) 
+                  VALUES (:user_id, :quote_text, :author)';
 
         $stmt = $this->pdo->prepare($query);
 
@@ -82,8 +78,8 @@ class QuoteService
      */
     public function editQuote(int $quoteId, array $quoteData): bool
     {
-        $query = "UPDATE quotes SET quote_text = :quote_text, author = :author  
-                  WHERE id = :id AND user_id = :user_id";
+        $query = 'UPDATE quotes SET quote_text = :quote_text, author = :author 
+                  WHERE id = :id AND user_id = :user_id';
 
         $stmt = $this->pdo->prepare($query);
 
@@ -103,7 +99,7 @@ class QuoteService
      */
     public function deleteQuote(int $quoteId): bool
     {
-        $query = "DELETE FROM quotes WHERE id = :id AND user_id = :user_id";
+        $query = 'DELETE FROM quotes WHERE id = :id AND user_id = :user_id';
         $stmt = $this->pdo->prepare($query);
         return $stmt->execute(['id' => $quoteId, 'user_id' => $this->authorizedUserId]);
     }
@@ -136,7 +132,7 @@ class QuoteService
      */
     public function getQuoteById(int $quoteId): ?array
     {
-        $query = "SELECT * FROM quotes WHERE id = :id AND user_id = :user_id";
+        $query = 'SELECT * FROM quotes WHERE id = :id AND user_id = :user_id';
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $quoteId, 'user_id' => $this->authorizedUserId]);
@@ -153,8 +149,8 @@ class QuoteService
      */
     public function toggleFavoriteQuote(int $quoteId): bool
     {
-        $query = "UPDATE quotes SET favorite = NOT favorite 
-                  WHERE id = :id AND user_id = :user_id";
+        $query = 'UPDATE quotes SET favorite = NOT favorite 
+                  WHERE id = :id AND user_id = :user_id';
 
         $stmt = $this->pdo->prepare($query);
         return $stmt->execute(['id' => $quoteId, 'user_id' => $this->authorizedUserId]);
