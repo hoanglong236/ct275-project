@@ -53,17 +53,6 @@ class UserService
     }
 
     /**
-     * Sign out the user (destroy session).
-     * 
-     * @return void
-     */
-    public function signOut(): void
-    {
-        session_unset();
-        session_destroy();
-    }
-
-    /**
      * Check if a username exists.
      * 
      * @param string $username The username to check.

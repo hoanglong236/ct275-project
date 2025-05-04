@@ -7,6 +7,4 @@ use CT275\Labs\Services\UserService;
 Authorization::redirectIfUnauthorized();
 Authorization::revokeUserAuthorization();
 
-$userService = new UserService($pdo);
-$userService->signOut();
 redirect("/sign-in.php");
