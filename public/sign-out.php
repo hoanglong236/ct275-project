@@ -7,4 +7,4 @@ use CT275\Labs\Services\UserService;
 Authorization::redirectIfUnauthorized();
 Authorization::revokeUserAuthorization();
 
-redirect("/sign-in.php");
+redirect('/sign-in.php');
